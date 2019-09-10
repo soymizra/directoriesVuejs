@@ -1,16 +1,43 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <section id="app" >
+    <div class=" Menu container-fluid">
+      <div class="row">
+        <div class="menu-responsivo col-xs-9 col-lg-9 d-none d-lg-block" id="options">
+          <nav id="nav">
+            <ul class="nav justify-content-start">
+              <li>
+                <router-link to="/">Home</router-link>
+              </li>
+              <li>
+                <router-link to="/about">About</router-link>
+              </li>
+              <li>
+                <a href="#" class="decoracion">Add a listing</a>
+              </li>              
+            </ul>
+          </nav>
+        </div>
+        <div class="logo col-xs-2 col-lg-2 col-sm-12 col-10 d-flex justify-content-center">
+          <img
+            src="https://trello-attachments.s3.amazonaws.com/5d5219765253b33219ccae57/300x81/0cb7bd1ed8fd13b1a07d19e6a1e07a6b/fuente_negro.png"
+            class="img-fluid"
+          />
+        </div>
+        <div class="justify-content-end col-sm-1 col-1 display-menu-hambur d-lg-none">
+          <span class="burguer-menu" onclick="openMenu()">
+            <i class="fas fa-bars"></i>
+          </span>
+        </div>
+      </div>
     </div>
-    <router-view/>
-  </div>
+    
+  <router-view />
+  </section>
 </template>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
