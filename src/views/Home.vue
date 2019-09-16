@@ -84,17 +84,9 @@
                 </div>
             </div>
             <div class="row indexCategorie">
-                <!-- <div class="col-md-3 col-sm-12 mb-3">
-                    <div class="card bg-dark text-white cardCategory">
-                        <img src="./static/img/00.jpg" class="card-img" alt="...">
-                        <div class="overlay"></div>
-                        <div class="card-content">
-                            <span class="iconCategory material-icons">flash_on</span>
-                            <h3 class="card-title">Category 1</h3>
-                            <p class="">2 listings</p>
-                        </div>
-                    </div>
-                </div> -->
+                <div class="pt-5 col-md-3" v-for="category in array_categories_home" :key="category.id">
+                    <CardCategory :card_categorie_data="category"></CardCategory>
+                </div>
             </div>
         </div>
     </section>
@@ -103,12 +95,72 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import CardCategory from "@/components/CardCategory.vue";
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    CardCategory
+  },
+data(){
+    return {
+      urlAPI: 'http://fundamentos.academlo.com/api/v1',
+      directorieUUID: '5c82982e-b63e-4280-8287-4eba0e99716a',
+      products: [ ],
+      categories_data: [ ],
+      array_products_home: [ ],
+      array_categories_home: [ ]
+    }
+  },
+  created(){
+    //HERE FUNCTIONS TO LOAD DATA FROM THE AXIOS HTTP REQUEST
+    this.getHomeData();
+  },
+  methods: {
+    //Function to get products
+    getHomeData() {
+      const endPointCategories = `${this.urlAPI}/directories/${this.directorieUUID}/categories`;
+      
+      let randomProducts;
+
+      axios.get(endPointCategories)
+        .then(response => {
+          this.categories_data = response.data;
+          randomProducts = (Math.floor(Math.random() * this.categories_data.categories.length));
+
+          //
+          for (let i = 0; i < 8; i++) {
+            this.array_categories_home.push(this.categories_data.categories[i]);
+          }
+          //
+
+          if(randomProducts == 0){
+            randomProducts = 1;
+          } else {
+
+            let endPointProducts = `${this.urlAPI}/categories/${this.categories_data.categories[randomProducts].uuid}/products`;
+            console.log(endPointProducts);
+
+            axios.get(endPointProducts)
+              .then(response => {
+                this.products = response.data
+
+                if(this.products.products.length > 2){
+                  for (let i = 0; i < 3; i++) {
+                    this.array_products_home.push(this.products.products[i]);
+                  }
+                }
+
+              })
+              .catch(err => {
+                alert(`Its not possible load data from de API - PRODUCTS`);
+              });
+          }
+        })
+        .catch(err => {
+          alert(`Its not possible load data from de API - CATEGORIES`);
+        });
+    }
   }
-}
+};
 </script>

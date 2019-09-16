@@ -9,7 +9,7 @@
                 <router-link to="/">Home</router-link>
               </li>
               <li>
-                <router-link to="/about">About</router-link>
+                <router-link to="/explore">Explore</router-link>
               </li>
               <li>
                 <a href="#" class="decoracion">Add a listing</a>
@@ -32,6 +32,22 @@
     </div>
     
   <router-view />
+
+  <footer class="mt-5">
+            <div class="container-fluid">
+                <div class="row justify-content-between">
+                    <div class="col-4 box center-text">
+                        <p>Do you like BRAND?
+                            <span> Advertise with us</span>
+                        </p>
+                    </div>
+                    <div class="col-4 box center-text">
+                        <p>Developed by: <span>Equipo Chido</span></p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
   </section>
 </template>
 
